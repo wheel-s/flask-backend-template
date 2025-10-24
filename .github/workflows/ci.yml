@@ -31,7 +31,7 @@ jobs:
 
    - name: Run tests
      env:
-      FLASK_ENV:testing
+      FLASK_ENV: testing
      run: pytest -v --maxfail =1 --disable-warnings --cov=app
 
 
