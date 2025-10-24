@@ -3,7 +3,6 @@ from flask_jwt_extended import jwt_required,get_jwt_identity
 from app.models.student import Student
 from app.schema.student_schema import StudentSchema
 from app.extensions import db
-import app
 
 
 

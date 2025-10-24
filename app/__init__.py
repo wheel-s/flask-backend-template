@@ -5,7 +5,7 @@ from app.routes.students import student_bp
 from app.routes.courses import course_bp
 from app.routes.grades import grade_bp
 from app.extensions import db, jwt, migrate
-
+from flask_cors import CORS
 import pymysql 
 
 
@@ -16,6 +16,10 @@ pymysql.install_as_MySQLdb()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/api*":{"origins":[
+        "https://localhost:3000"
+        "https://api.example.com"
+    ]}})
     app.config.from_object(Config)
 
     db.init_app(app)
@@ -37,13 +41,15 @@ def create_app():
     
     @app.errorhandler(500)
     def internal_error(e):
-        return jsonify({"error":"Internal servr error"}, 500)
+        return jsonify({"error":"Internal servr error"}), 500
+    
     @app.errorhandler(400)
     def bad_request(e):
         return jsonify({"error":"Bad request"}), 400
+    
     @app.errorhandler(403)
     def no_auth():
-        return jsonify({"error":"NOt authourized"})
+        return jsonify({"error":"NOt authourized"}), 403
 
 
   
